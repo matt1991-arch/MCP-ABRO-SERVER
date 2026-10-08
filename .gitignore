@@ -1,0 +1,14 @@
+# Configuración local (rutas de tu máquina, nunca se sube)
+.env
+mcp.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Datos locales de proyectos (casos reales) — solo se publica el ejemplo
+proyectos/*
+!proyectos/20261004_111550_ejemplo_camargo.json

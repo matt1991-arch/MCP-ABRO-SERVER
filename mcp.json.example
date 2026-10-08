@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "abro": {
+      "command": "python",
+      "args": ["RUTA_AL_REPO/server.py"],
+      "env": {
+        "ABRO_DB_PATH": "RUTA_A/abro.db",
+        "ABRO_ALLOW_WRITE": "0",
+        "ABRO_PROJECTS_DIR": "RUTA_AL_REPO/proyectos"
+      }
+    }
+  }
+}
