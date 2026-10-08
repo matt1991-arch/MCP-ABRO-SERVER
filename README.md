@@ -25,8 +25,8 @@ Expone:
 ## Instalación
 
 ```bat
-git clone https://github.com/TU_USUARIO/abro-mcp-server.git
-cd abro-mcp-server
+git clone https://github.com/matt1991-arch/MCP-ABRO-SERVER.git
+cd MCP-ABRO-SERVER
 pip install -r requirements.txt
 copy .env.example .env
 ```
@@ -91,19 +91,40 @@ variables exportadas). Ejemplos por cliente:
 `command + args + env` en su archivo de configuración MCP
 (`.claude.json`, `.cursor/mcp.json`, `mcp.json` según el cliente).
 
-## Herramientas
+## Herramientas (19)
 
-DB (lectura): `abro_estado`, `abro_tablas`, `abro_consultar`, `abro_sql_select`,
-`abro_zonas`, `abro_suelos`, `abro_cultivos_por_zona`, `abro_buscar_cultivo`,
-`abro_ubicacion`, `abro_cuencas`.
-Escritura: `abro_sql_write` (solo con ABRO_ALLOW_WRITE=1, bloquea versionDB).
-Cálculos: `calc_precipitacion_efectiva`, `calc_eficiencias`, `calc_eto`,
-`calc_dotacion`, `calc_balance`.
-Proyectos: `proyecto_guardar`, `proyecto_cargar`, `proyecto_listar`.
+| Grupo | Herramientas |
+|---|---|
+| DB lectura | `abro_estado`, `abro_tablas`, `abro_consultar`, `abro_sql_select`, `abro_zonas`, `abro_suelos`, `abro_cultivos_por_zona`, `abro_buscar_cultivo`, `abro_ubicacion`, `abro_cuencas` |
+| DB escritura | `abro_sql_write` (solo con `ABRO_ALLOW_WRITE=1`, bloquea `versionDB`) |
+| Cálculos | `calc_precipitacion_efectiva`, `calc_eficiencias`, `calc_eto`, `calc_dotacion`, `calc_balance` |
+| Proyectos | `proyecto_guardar`, `proyecto_cargar`, `proyecto_listar` |
+
+## Flujo de trabajo .abro (resumen)
+
+Con este repo + ABRO 4.0.1 se generan los archivos `.abro` de atajados con
+balance funcional. El flujo completo, con todas las reglas aprendidas
+(decimales, sellos, validaciones), está documentado en **[AGENTS.md](AGENTS.md)**:
+
+1. Se parte del archivo origen funcional (`duraznera`) con edición por texto puro.
+2. Se sella con las clases Java reales del programa (`jjs` + `abro_app.jar`).
+3. Se verifica `codigoControl` + `version` → OK/OK.
+4. En ABRO se corre la cadena **ETo → Calcular, Demanda → Calcular, Balance → Calcular**.
+
+Atajados generados con este flujo (archivos locales, fuera del repo):
+
+| Atajado | Comunidad | Área | Oferta anual |
+|---|---|---|---|
+| La Abra (duraznera) | EL ABRA | 14.05 ha | 5 679.85 m³ |
+| Tembladerayuc | UTURUNGO | 4.60 ha | 3 814.57 m³ |
+| Keñuamayu | KEÑUAMAYU | 0.52 ha | 2 900.43 m³ |
+| Charcomayu | YURAC CABALLO | 8.46 ha | 3 814.57 m³ |
+| El Kenko | YURAC CABALLO | 7.71 ha | 2 581.47 m³ |
 
 ## Notas
 
 - `abro.db` original nunca se copia: las lecturas usan `mode=ro` para no bloquear a Abro.exe.
 - Escritura directa solo a tablas de referencia (suelos, cultivos, etc.). Los casos de
   estudio van a `./proyectos/*.json`, no al .db (ABRO no guarda proyectos en el .db).
+- Los `.abro` de atajados **no se suben al repo** (datos de proyecto, repo público).
 - Fórmulas según Manual Técnico ABRO 4.0.1 / FAO-56.
