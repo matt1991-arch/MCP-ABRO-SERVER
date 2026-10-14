@@ -71,6 +71,10 @@ Cédula estándar: 5 cultivos CP + 5 SP (papa temprana, 3 duraznos
 BLANCO/AMARILLO/CRIOLLO, haba seca), reparto **90% perenne / 10% verano**,
 `UUID`s únicos por fila, oferta con patrón `m1–m5,m8–m11` uniforme,
 `m12` = ajuste de cierre, `m6=m7=0`.
+**OJO: en la matriz de oferta `m1` = ENERO** (no junio aunque otras
+listas del XML vayan jun→may; la UI lo confirma mes a mes).
+`m6=m7=0` = jun–jul (invierno, sin demanda). Nunca poner en cero
+ene–may: el balance falla y Vol. usado sale 0.
 
 ### 4.2 Reglas de edición (aprendidas a golpes, no negociables)
 
